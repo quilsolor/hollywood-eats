@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollywood Eats</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3060/3060103.png">
+
+    <style>
+        body {font-family: monospace; background: #0f0f0f; color: #ffd700; margin:0; padding:15px; text-align:center;}
+        h1 {font-size: 2.6em; margin:8px 0 5px; color:#fff;}
+        .tagline {color:#ff3333; font-size:1.2em; margin-bottom:20px;}
+        .info {background:#1a1a1a; padding:12px; border-radius:12px; margin:15px auto; max-width:800px;}
+        input {width:100%; max-width:400px; padding:12px; margin:6px 0; background:#222; color:#ffd700; border:2px solid #ffd700; border-radius:8px; font-size:1.1em;}
+        
+        /* iPhone touch fix */
+        button {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        
+        .menu {max-width:900px; margin:20px auto;}
+        .item {background:#1a1a1a; margin:8px 0; padding:12px; border-radius:12px; display:flex; align-items:center; border:2px solid #ffd700;}
+        .item span.emoji {font-size:2.5em; margin-right:12px;}
+        .item-info {flex:1; text-align:left;}
+        .item-info strong {font-size:1.25em;}
+        .price {font-size:1.35em; margin-right:12px; font-weight:bold;}
+        button.add {background:#ff3333; color:white; border:none; padding:14px 24px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1em;}
+        
+        #cart {background:#1a1a1a; max-width:800px; margin:25px auto; padding:15px; border-radius:15px; border:3px solid #ffd700;}
+        .cart-item {display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #444; align-items:center;}
+        .total {font-size:1.7em; margin:15px 0; color:#ff3333;}
+        button.order {background:#ffd700; color:#000; font-size:1.4em; padding:18px; border:none; border-radius:12px; width:100%; margin:10px auto; display:block;}
+    </style>
+</head>
+<body>
+    <h1>🍽️ Hollywood Eats</h1>
+    <p class="tagline">Comida fresca • Rápida • Comunidad Cerrada</p>
+
+    <div class="info">
+        <input type="text" id="customerName" placeholder="Su nombre completo">
+        <input type="text" id="houseNumber" placeholder="Número de casa / Apartamento">
+    </div>
+
+    <div class="menu">
+        <div class="item">
+            <span class="emoji">🦐</span>
+            <div class="item-info">
+                <strong>Brochetas de Camarón</strong><br>
+                Camarones, pimientos de colores, cebolla y salsa BBQ casera
+            </div>
+            <div class="price">$12.00</div>
+            <button class="add" onclick="addToCart(0)">Agregar</button>
+        </div>
+
+        <div class="item">
+            <span class="emoji">🐔</span>
+            <div class="item-info">
+                <strong>Brochetas de Pollo</strong><br>
+                Pollo, pimientos de colores, cebolla y salsa BBQ casera
+            </div>
+            <div class="price">$10.00</div>
+            <button class="add" onclick="addToCart(1)">Agregar</button>
+        </div>
+
+        <div class="item">
+            <span class="emoji">🐷</span>
+            <div class="item-info">
+                <strong>Brochetas de Cerdo</strong><br>
+                Cerdo, pimientos de colores, cebolla y salsa BBQ casera
+            </div>
+            <div class="price">$11.00</div>
+            <button class="add" onclick="addToCart(2)">Agregar</button>
+        </div>
+
+        <div class="item">
+            <span class="emoji">🍔</span>
+            <div class="item-info">
+                <strong>Mini Hamburguesas de Res (2)</strong><br>
+                Mini hamburguesas de res con salsa BBQ casera
+            </div>
+            <div class="price">$8.00</div>
+            <button class="add" onclick="addToCart(3)">Agregar</button>
+        </div>
+    </div>
+
+    <div id="cart">
+        <h2>Su Pedido</h2>
+        <div id="cartItems"></div>
+        <div class="total">Total: $<span id="total">0.00</span></div>
+        <button class="order" onclick="placeOrder()">📱 Enviar Pedido por WhatsApp</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(index) {
+            const items = [
+                {emoji: "🦐", name: "Brochetas de Camarón", price: 12},
+                {emoji: "🐔", name: "Brochetas de Pollo", price: 10},
+                {emoji: "🐷", name: "Brochetas de Cerdo", price: 11},
+                {emoji: "🍔", name: "Mini Hamburguesas de Res (2)", price: 8}
+            ];
+            const item = items[index];
+
+            let existing = cart.find(i => i.name === item.name);
+            if (existing) existing.quantity++;
+            else cart.push({emoji: item.emoji, name: item.name, price: item.price, quantity: 1});
+
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#666; padding:30px 0;">Carrito vacío</p>';
+                document.getElementById('total').textContent = "0.00";
+                return;
+            }
+
+            let total = 0;
+
+            cart.forEach(function(item, i) {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = '<span>' + item.emoji + ' ' + item.name + ' ×' + item.quantity + '</span>' +
+                                '<span>$' + itemTotal.toFixed(2) + '</span>' +
+                                '<button onclick="removeFromCart(' + i + ')" style="background:#ff3333;color:white;border:none;padding:6px 12px;border-radius:5px;">Quitar</button>';
+                container.appendChild(div);
+            });
+
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert("El carrito está vacío");
+                return;
+            }
+
+            const name = document.getElementById('customerName').value.trim() || "Cliente";
+            const house = document.getElementById('houseNumber').value.trim() || "Desconocido";
+
+            let orderText = "🍽️ *Nuevo Pedido - Hollywood Eats*\n\n";
+            orderText += "👤 Nombre: " + name + "\n";
+            orderText += "🏠 Casa/Apto: " + house + "\n\n";
+
+            cart.forEach(function(item) {
+                var itemTotal = item.price * item.quantity;
+                orderText += "• " + item.emoji + " " + item.name + " ×" + item.quantity + " = $" + itemTotal.toFixed(2) + "\n";
+            });
+
+            var total = cart.reduce(function(sum, item) {
+                return sum + (item.price * item.quantity);
+            }, 0);
+
+            orderText += "\n*TOTAL: $" + total.toFixed(2) + "*\n";
+            orderText += "Hora: " + new Date().toLocaleString('en-US', {timeZone: 'America/Guayaquil'}) + "\n";
+
+            const phone = "593986785366";
+            const whatsappUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(orderText);
+
+            window.open(whatsappUrl, '_blank');
+            alert("✅ ¡Pedido enviado por WhatsApp! Gracias por ordenar en Hollywood Eats 🍽️");
+
+            cart = [];
+            renderCart();
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
