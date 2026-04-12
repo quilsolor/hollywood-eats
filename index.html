@@ -26,8 +26,8 @@
         .menu {max-width:900px; margin:20px auto;}
         .item {background:#1a1a1a; margin:8px 0; padding:12px; border-radius:12px; display:flex; align-items:center; border:2px solid #ffd700;}
         .item span.emoji {font-size:2.5em; margin-right:12px;}
-        .item-info {flex:1; text-align:left;}
-        .item-info strong {font-size:1.25em;}
+        .item-info {flex:.8; text-align:left;}
+        .item-info strong {color: red; font-size:1.5em;}
         .price {font-size:1.35em; margin-right:12px; font-weight:bold;}
         button.add {background:#ff3333; color:white; border:none; padding:14px 24px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1.1em;}
         
@@ -39,11 +39,11 @@
 </head>
 <body>
     <h1>🍽️ Hollywood Eats</h1>
-    <p class="tagline">Comida fresca • Rápida • Comunidad Cerrada</p>
+    <p class="tagline">Mejor comida por el Mejor comunidad</p>
 
     <div class="info">
-        <input type="text" id="customerName" placeholder="Su nombre completo">
-        <input type="text" id="houseNumber" placeholder="Número de casa / Apartamento">
+        <input type="text" id="customerName" placeholder="Nombre completo">
+        <input type="text" id="houseNumber" placeholder="Manzana - Villa / Picina - parke">
     </div>
 
     <div class="menu">
@@ -51,9 +51,9 @@
             <span class="emoji">🦐</span>
             <div class="item-info">
                 <strong>Brochetas de Camarón</strong><br>
-                Camarones, pimientos de colores, cebolla y salsa BBQ casera
+                Pimientos de tres colores, cebolla, pan y salsa BBQ casera
             </div>
-            <div class="price">$12.00</div>
+            <div class="price">$7.00</div>
             <button class="add" onclick="addToCart(0)">Agregar</button>
         </div>
 
@@ -61,9 +61,9 @@
             <span class="emoji">🐔</span>
             <div class="item-info">
                 <strong>Brochetas de Pollo</strong><br>
-                Pollo, pimientos de colores, cebolla y salsa BBQ casera
+                Pimientos de tres colores, cebolla, pan y salsa BBQ casera
             </div>
-            <div class="price">$10.00</div>
+            <div class="price">$5.00</div>
             <button class="add" onclick="addToCart(1)">Agregar</button>
         </div>
 
@@ -71,17 +71,17 @@
             <span class="emoji">🐷</span>
             <div class="item-info">
                 <strong>Brochetas de Cerdo</strong><br>
-                Cerdo, pimientos de colores, cebolla y salsa BBQ casera
+                Pimientos de tres colores, cebolla, pan y salsa BBQ casera
             </div>
-            <div class="price">$11.00</div>
+            <div class="price">$6.00</div>
             <button class="add" onclick="addToCart(2)">Agregar</button>
         </div>
 
         <div class="item">
             <span class="emoji">🍔</span>
             <div class="item-info">
-                <strong>Mini Hamburguesas de Res (2)</strong><br>
-                Mini hamburguesas de res con salsa BBQ casera
+                <strong>Mini Hamburguesas de Res (4)</strong><br>
+                Hamburguesas de res ...... solo Mini y papas fritas.
             </div>
             <div class="price">$8.00</div>
             <button class="add" onclick="addToCart(3)">Agregar</button>
@@ -100,10 +100,10 @@
 
         function addToCart(index) {
             const items = [
-                {emoji: "🦐", name: "Brochetas de Camarón", price: 12},
-                {emoji: "🐔", name: "Brochetas de Pollo", price: 10},
-                {emoji: "🐷", name: "Brochetas de Cerdo", price: 11},
-                {emoji: "🍔", name: "Mini Hamburguesas de Res (2)", price: 8}
+                {emoji: "🦐", name: "Brochetas de Camarón", price: 7},
+		{emoji: "🐔", name: "Brochetas de Pollo", price: 5},
+                {emoji: "🐷", name: "Brochetas de Cerdo", price: 6},
+                {emoji: "🍔", name: "Mini Hamburguesas de Res (4)", price: 8}
             ];
             const item = items[index];
 
