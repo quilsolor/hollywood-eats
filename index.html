@@ -46,14 +46,17 @@
         <input type="text" id="houseNumber" placeholder="Manzana - Villa / Picina - parke">
     </div>
 
-    <div class="menu">
-        <div class="item">
-            <span class="emoji">🦐</span>
+   <div class="menu">
+  
+	  <div class="item">
+            <span class="emoji">🍔</span>
             <div class="item-info">
-                <strong>Brochetas de Camarón</strong><br>
-                Pimientos de tres colores, cebolla, pan y salsa BBQ casera
+                <strong>Hamburguesa de Salomon</strong><br>
+                Armado con Carne de Res, salomi,
+		queso chedder, lechuga, tomate,
+		con pan atresonal 
             </div>
-            <div class="price">$7.00</div>
+            <div class="price">$5.00</div>
             <button class="add" onclick="addToCart(0)">Agregar</button>
         </div>
 
@@ -68,22 +71,22 @@
         </div>
 
         <div class="item">
-            <span class="emoji">🐷</span>
+            <span class="emoji">🍟</span>
             <div class="item-info">
-                <strong>Brochetas de Cerdo</strong><br>
-                Pimientos de tres colores, cebolla, pan y salsa BBQ casera
+                <strong>Papas Fritas</strong><br>
+                Orden extra
             </div>
-            <div class="price">$6.00</div>
+            <div class="price">$1.50</div>
             <button class="add" onclick="addToCart(2)">Agregar</button>
         </div>
 
         <div class="item">
-            <span class="emoji">🍔</span>
+            <span class="emoji">🥤</span>
             <div class="item-info">
-                <strong>Mini Hamburguesas de Res (4)</strong><br>
-                Hamburguesas de res ...... solo Mini y papas fritas.
+                <strong>Cola</strong><br>
+                Personal 300ml.
             </div>
-            <div class="price">$8.00</div>
+            <div class="price">$.75</div>
             <button class="add" onclick="addToCart(3)">Agregar</button>
         </div>
     </div>
@@ -100,10 +103,10 @@
 
         function addToCart(index) {
             const items = [
-                {emoji: "🦐", name: "Brochetas de Camarón", price: 7},
+                {emoji: "🍔", name: "Hamburguesa de Salomon", price: 5},
 		{emoji: "🐔", name: "Brochetas de Pollo", price: 5},
-                {emoji: "🐷", name: "Brochetas de Cerdo", price: 6},
-                {emoji: "🍔", name: "Mini Hamburguesas de Res (4)", price: 8}
+                {emoji: "🍟", name: "Papas Fritas", price: 1.50},
+                {emoji: "🥤", name: "Cola", price: .75}
             ];
             const item = items[index];
 
